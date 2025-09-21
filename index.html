@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth - FloatChat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .bg-ocean {
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+      background-size: cover;
+    }
+    .overlay {
+      background: rgba(0, 28, 54, 0.65);
+    }
+    .tab-active {
+      background: linear-gradient(to right, #22d3ee, #2d68e7);
+      color: white !important;
+    }
+  </style>
+</head>
+<body class="flex h-screen">
+
+  <!-- Left Image Section -->
+  <div class="hidden md:flex md:w-1/2 relative bg-ocean">
+    <div class="overlay absolute inset-0 flex items-center justify-center px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-400 animate-pulse">
+        Explore the Oceans with AI
+      </h1>
+    </div>
+  </div>
+
+  <!-- Right Form Section -->
+  <!-- <div class="w-full md:w-1/2 flex items-center justify-center bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900"> -->
+      <div class="w-full md:w-1/2 flex items-center justify-center bg-gradient-to-br from-cyan-700 via-teal-700 to-blue-500">
+    <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-10 w-full max-w-md border border-white/20">
+
+      <!-- Tabs -->
+      <div class="flex mb-8 rounded-lg overflow-hidden border border-gray-600">
+        <button id="signInTab" class="flex-1 py-3 text-gray-300 font-semibold transition tab-active">Sign In</button>
+        <button id="signUpTab" class="flex-1 py-3 text-gray-300 font-semibold transition">Sign Up</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" class="space-y-5">
+        <div>
+          <label for="email" class="block text-gray-200 mb-1">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required
+                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+        </div>
+
+        <div>
+          <label for="password" class="block text-gray-200 mb-1">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required
+                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+        </div>
+
+        <div class="flex items-center justify-between text-gray-300 text-sm">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="accent-cyan-400">
+            <span>Remember Me</span>
+          </label>
+          <a href="#" class="hover:text-cyan-300 transition">Forgot Password?</a>
+        </div>
+
+        <button type="submit"
+                class="w-full py-3 bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-500 hover:to-blue-700 font-semibold text-white rounded-xl shadow-lg transition transform hover:scale-105">
+          Sign In
+        </button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signUpForm" class="space-y-5 hidden">
+        <div>
+          <label for="name" class="block text-gray-200 mb-1">Full Name</label>
+          <input type="text" id="name" placeholder="John Doe" required
+                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+        </div>
+
+        <div>
+          <label for="signup-email" class="block text-gray-200 mb-1">Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" required
+                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+        </div>
+
+        <div>
+          <label for="signup-password" class="block text-gray-200 mb-1">Password</label>
+          <input type="password" id="signup-password" placeholder="Create a password" required
+                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+        </div>
+
+        <div>
+          <label for="confirm-password" class="block text-gray-200 mb-1">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Re-enter password" required
+                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+        </div>
+
+        <button type="submit"
+                class="w-full py-3 bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-500 hover:to-blue-700 font-semibold text-white rounded-xl shadow-lg transition transform hover:scale-105">
+          Sign Up
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="flex items-center my-6">
+        <hr class="flex-grow border-gray-600">
+        <span class="mx-3 text-gray-400 text-sm">or continue with</span>
+        <hr class="flex-grow border-gray-600">
+      </div>
+
+      <!-- Google Login -->
+      <div class="flex justify-center">
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+             data-login_uri=""
+             data-auto_prompt="false"
+             data-callback="handleCredentialResponse">
+        </div>
+
+        <div class="w-full">
+          <button id="googleBtn" class="w-full py-3 bg-white/20 text-gray-100 rounded-xl hover:bg-cyan-500 hover:text-white transition font-semibold">
+            Sign in with Google
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Tab switch
+    const signInTab = document.getElementById("signInTab");
+    const signUpTab = document.getElementById("signUpTab");
+    const signInForm = document.getElementById("signInForm");
+    const signUpForm = document.getElementById("signUpForm");
+
+    // Sign In
+    signInForm.addEventListener("submit", function(e) {
+        e.preventDefault(); // prevent default form submission
+        window.location.href = "home.html"; // redirect to home.html
+    });
+
+    // Sign Up
+    signUpForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        window.location.href = "home.html";
+    });
+    signInTab.addEventListener("click", () => {
+      signInForm.classList.remove("hidden");
+      signUpForm.classList.add("hidden");
+      signInTab.classList.add("tab-active");
+      signUpTab.classList.remove("tab-active");
+    });
+
+    signUpTab.addEventListener("click", () => {
+      signUpForm.classList.remove("hidden");
+      signInForm.classList.add("hidden");
+      signUpTab.classList.add("tab-active");
+      signInTab.classList.remove("tab-active");
+    });
+
+    // Google button click
+    document.getElementById("googleBtn").addEventListener("click", () => {
+      google.accounts.id.prompt(); // show Google One Tap prompt
+    });
+  </script>
+
+</body>
+</html>
+
