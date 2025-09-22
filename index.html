@@ -13,36 +13,42 @@
       font-family: 'Segoe UI', sans-serif;
     }
     .bg-ocean {
-      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') no-repeat center center;
       background-size: cover;
     }
     .overlay {
-      background: rgba(0, 28, 54, 0.65);
+      background: rgba(0, 20, 50, 0.7); /* darker deep ocean */
+      backdrop-filter: blur(2px);
     }
     .tab-active {
-      background: linear-gradient(to right, #22d3ee, #2d68e7);
+      background: linear-gradient(to right, #06b6d4, #2563eb);
       color: white !important;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
   </style>
 </head>
 <body class="flex h-screen">
 
-  <!-- Left Image Section -->
+  <!-- Left Ocean Image Section -->
   <div class="hidden md:flex md:w-1/2 relative bg-ocean">
     <div class="overlay absolute inset-0 flex items-center justify-center px-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-400 animate-pulse">
-        Explore the Oceans with AI
+      <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-sky-300 to-indigo-400 drop-shadow-lg animate-pulse">
+        Dive Into the Ocean of AI
       </h1>
     </div>
   </div>
 
   <!-- Right Form Section -->
-  <!-- <div class="w-full md:w-1/2 flex items-center justify-center bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900"> -->
-      <div class="w-full md:w-1/2 flex items-center justify-center bg-gradient-to-br from-cyan-700 via-teal-700 to-blue-500">
-    <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-10 w-full max-w-md border border-white/20">
+  <div class="w-full md:w-1/2 flex items-center justify-center bg-gradient-to-br from-sky-950 via-blue-900 to-cyan-800">
+    <div class="glass-card rounded-2xl shadow-2xl p-10 w-full max-w-md">
 
       <!-- Tabs -->
-      <div class="flex mb-8 rounded-lg overflow-hidden border border-gray-600">
+      <div class="flex mb-8 rounded-lg overflow-hidden border border-cyan-600/40">
         <button id="signInTab" class="flex-1 py-3 text-gray-300 font-semibold transition tab-active">Sign In</button>
         <button id="signUpTab" class="flex-1 py-3 text-gray-300 font-semibold transition">Sign Up</button>
       </div>
@@ -52,13 +58,13 @@
         <div>
           <label for="email" class="block text-gray-200 mb-1">Email</label>
           <input type="email" id="email" placeholder="you@example.com" required
-                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+                 class="w-full px-4 py-3 rounded-xl bg-white/10 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition shadow-inner" />
         </div>
 
         <div>
           <label for="password" class="block text-gray-200 mb-1">Password</label>
           <input type="password" id="password" placeholder="Enter your password" required
-                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+                 class="w-full px-4 py-3 rounded-xl bg-white/10 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition shadow-inner" />
         </div>
 
         <div class="flex items-center justify-between text-gray-300 text-sm">
@@ -70,7 +76,7 @@
         </div>
 
         <button type="submit"
-                class="w-full py-3 bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-500 hover:to-blue-700 font-semibold text-white rounded-xl shadow-lg transition transform hover:scale-105">
+                class="w-full py-3 bg-gradient-to-r from-cyan-400 to-sky-600 hover:from-cyan-500 hover:to-sky-700 font-semibold text-white rounded-xl shadow-lg transition transform hover:scale-105 hover:shadow-cyan-500/50">
           Sign In
         </button>
       </form>
@@ -80,38 +86,38 @@
         <div>
           <label for="name" class="block text-gray-200 mb-1">Full Name</label>
           <input type="text" id="name" placeholder="John Doe" required
-                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+                 class="w-full px-4 py-3 rounded-xl bg-white/10 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition shadow-inner" />
         </div>
 
         <div>
           <label for="signup-email" class="block text-gray-200 mb-1">Email</label>
           <input type="email" id="signup-email" placeholder="you@example.com" required
-                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+                 class="w-full px-4 py-3 rounded-xl bg-white/10 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition shadow-inner" />
         </div>
 
         <div>
           <label for="signup-password" class="block text-gray-200 mb-1">Password</label>
           <input type="password" id="signup-password" placeholder="Create a password" required
-                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+                 class="w-full px-4 py-3 rounded-xl bg-white/10 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition shadow-inner" />
         </div>
 
         <div>
           <label for="confirm-password" class="block text-gray-200 mb-1">Confirm Password</label>
           <input type="password" id="confirm-password" placeholder="Re-enter password" required
-                 class="w-full px-4 py-3 rounded-xl bg-white/20 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" />
+                 class="w-full px-4 py-3 rounded-xl bg-white/10 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition shadow-inner" />
         </div>
 
         <button type="submit"
-                class="w-full py-3 bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-500 hover:to-blue-700 font-semibold text-white rounded-xl shadow-lg transition transform hover:scale-105">
+                class="w-full py-3 bg-gradient-to-r from-cyan-400 to-sky-600 hover:from-cyan-500 hover:to-sky-700 font-semibold text-white rounded-xl shadow-lg transition transform hover:scale-105 hover:shadow-cyan-500/50">
           Sign Up
         </button>
       </form>
 
       <!-- Divider -->
       <div class="flex items-center my-6">
-        <hr class="flex-grow border-gray-600">
+        <hr class="flex-grow border-cyan-700/40">
         <span class="mx-3 text-gray-400 text-sm">or continue with</span>
-        <hr class="flex-grow border-gray-600">
+        <hr class="flex-grow border-cyan-700/40">
       </div>
 
       <!-- Google Login -->
@@ -124,7 +130,7 @@
         </div>
 
         <div class="w-full">
-          <button id="googleBtn" class="w-full py-3 bg-white/20 text-gray-100 rounded-xl hover:bg-cyan-500 hover:text-white transition font-semibold">
+          <button id="googleBtn" class="w-full py-3 bg-white/10 text-gray-100 rounded-xl hover:bg-cyan-500 hover:text-white transition font-semibold shadow-md hover:shadow-cyan-400/40">
             Sign in with Google
           </button>
         </div>
@@ -142,8 +148,8 @@
 
     // Sign In
     signInForm.addEventListener("submit", function(e) {
-        e.preventDefault(); // prevent default form submission
-        window.location.href = "home.html"; // redirect to home.html
+        e.preventDefault();
+        window.location.href = "home.html";
     });
 
     // Sign Up
@@ -151,6 +157,7 @@
         e.preventDefault();
         window.location.href = "home.html";
     });
+
     signInTab.addEventListener("click", () => {
       signInForm.classList.remove("hidden");
       signUpForm.classList.add("hidden");
@@ -167,10 +174,9 @@
 
     // Google button click
     document.getElementById("googleBtn").addEventListener("click", () => {
-      google.accounts.id.prompt(); // show Google One Tap prompt
+      google.accounts.id.prompt();
     });
   </script>
 
 </body>
 </html>
-
