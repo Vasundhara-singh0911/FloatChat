@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FloatChat - AI Ocean Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .overlay {
+      background: rgba(0, 28, 54, 0.8);
+    }
+    .chat-container {
+      max-width: 800px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border-radius: 2rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+    .chat-header {
+      background: linear-gradient(to right, #22d3ee, #2d68e7);
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem 2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .message {
+      max-width: 70%;
+      padding: 0.8rem 1rem;
+      border-radius: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(to right, #22d3ee, #2d68e7);
+      color: white;
+    }
+    .message.bot {
+      align-self: flex-start;
+      background: rgba(255,255,255,0.1);
+      color: #e0f7fa;
+    }
+    .chat-input {
+      display: flex;
+      padding: 1rem 2rem;
+      background: rgba(0, 28, 54, 0.7);
+      gap: 1rem;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border-radius: 1.5rem;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      outline: none;
+    }
+    .chat-input button {
+      padding: 0.8rem 1.5rem;
+      border-radius: 1.5rem;
+      background: linear-gradient(to right, #22d3ee, #2d68e7);
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .chat-input button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #2d68e7, #22d3ee);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    /* Scrollbar styling */
+    .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(34, 211, 238, 0.5);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="overlay flex flex-col min-h-screen text-white">
+
+  <!-- Navbar -->
+  <header class="p-6 flex justify-between items-center bg-gradient-to-r from-cyan-700/80 to-blue-900/80 shadow-lg">
+    <h1 class="text-2xl font-bold tracking-wide">🌊 FloatChat</h1>
+    <nav class="space-x-6 text-lg">
+      <a href="#profile" class="hover:text-cyan-300 transition">Profile</a>
+      <a href="chatbot.html" class="hover:text-cyan-300 transition">Chatbot</a>
+      <a href="#contact" class="hover:text-cyan-300 transition">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Chat Section -->
+  <main class="flex-1 flex items-center justify-center py-10 px-6">
+    <div class="chat-container">
+      <div class="chat-header">AI Ocean Chatbot</div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot">Hello! 🌊 I’m FloatChat AI. Ask me anything about the oceans or ARGO float data!</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type your message..." />
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-gradient-to-r from-blue-950 via-blue-900 to-cyan-900 text-gray-300 relative mt-auto">
+    <div class="max-w-7xl mx-auto px-6 text-center text-gray-400 text-sm">
+      © 2025 FloatChat. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Chatbot logic (mock)
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    const botResponses = [
+      "Sure! You can visualize ocean temperatures on our maps.",
+      "Salinity data varies across regions; I can show you trends.",
+      "ARGO float data is collected globally every few days.",
+      "You can ask me to detect anomalies in the ocean currents.",
+      "I can summarize recent ocean data for you!"
+    ];
+
+    function addMessage(message, sender) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender);
+      msgDiv.textContent = message;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const message = userInput.value.trim();
+      if (!message) return;
+      addMessage(message, 'user');
+      userInput.value = '';
+      setTimeout(() => {
+        const botReply = botResponses[Math.floor(Math.random() * botResponses.length)];
+        addMessage(botReply, 'bot');
+      }, 800);
+    });
+
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendBtn.click();
+    });
+
+    ScrollReveal().reveal('.chat-container, .chat-header', {
+      delay: 200,
+      distance: '50px',
+      duration: 1200,
+      origin: 'bottom'
+    });
+  </script>
+</body>
+</html>
